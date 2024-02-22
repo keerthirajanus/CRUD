@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 export default function Home() {
   const [users, setUsers] = useState([]);
 
@@ -9,7 +10,8 @@ export default function Home() {
 
   const loadUsers = async () => {
     const result = await axios.get("https://localhost:7157/api/Customer/All");
-    console.log(result);
+    setUsers(result.data);
+    console.log(result.data);
   };
 
   return (
@@ -18,30 +20,22 @@ export default function Home() {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">ID</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Contact</th>
+              <th scope="col">Email</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
+            {users.map((user, index) => (
+              <tr key={index}>
+                <th scope="row">{user.id}</th>
+                <td>{user.customerName}</td>
+                <td>{user.phoneNumber}</td>
+                <td>{user.email}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
