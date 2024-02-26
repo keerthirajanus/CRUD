@@ -1,0 +1,13 @@
+var MyAllowSpecification = "_myAllowSpecificOrigins";
+
+//Cors Allow Origins
+builder.Services.AddCors(option =>
+{
+    option.AddPolicy(name: MyAllowSpecification,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+        });
+});
+
+app.UseCors(MyAllowSpecification);
